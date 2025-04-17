@@ -58,6 +58,7 @@ let seek;
 let indice;
 let input = document.getElementById('elegirHamburguesa');
 let boton = document.getElementById('guardarHamburguesa');
+let nuevoDiv = document.createElement('div');
 
 function pedirBurga(){
 
@@ -71,7 +72,8 @@ function encontrarBurga(){
 
 function mostrarPrecio(){
     if(indice != -1){
-        confirm(`Gracias por comprar ${seek} el total a abonar es:  `+ arrayBurgas[indice].precio);
+        nuevoDiv.innerHTML = `<p class = "msjCreado"> Gracias por comprar ${seek} el total a abonar es:  ${arrayBurgas[indice].precio} <p/>`
+        document.body.appendChild(nuevoDiv);
     }
     else{
         alert('Esa hamburguesa no exixtse, elija otra.');
