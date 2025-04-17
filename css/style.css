@@ -36,3 +36,9 @@ button{
     height: 60px;
     padding: 10px;
 }
+
+.msjCreado{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bolder;
+    font-size: larger;
+}

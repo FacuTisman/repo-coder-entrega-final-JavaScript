@@ -50,6 +50,7 @@ arrayBurgas.push({
     precio: 11000
 });
 
+
 // for(let i = 0; i < arrayBurgas.length; i++){
 //     console.log(arrayBurgas[i]);
 // }
@@ -57,14 +58,16 @@ arrayBurgas.push({
 let seek;
 let indice;
 let input = document.getElementById('elegirHamburguesa');
-let boton = document.getElementById('guardarHamburguesa');
+let botonPedir = document.getElementById('guardarHamburguesa');
 let nuevoDiv = document.createElement('div');
+let botonHistorial = document.getElementById("historial");
+
+// let historial = [];
 
 function pedirBurga(){
-
     seek = input.value;
-
 }
+
 
 function encontrarBurga(){
     indice = arrayBurgas.findIndex(burga => burga.nombre.toLocaleLowerCase() === seek.toLocaleLowerCase());
@@ -80,19 +83,21 @@ function mostrarPrecio(){
     }
 }
 
+function guardarHistorial(){
 
-boton.addEventListener("click",()=>{
-pedirBurga();
-encontrarBurga();
-mostrarPrecio();
-})
+    historial.push({
+        nombre: `${seek}`,
+        precio: arrayBurgas[indice].precio
+        })
+    
+    localStorage.setItem('historial',JSON.stringify(historial[indice]))
+    
+    }
 
+// console.log(historial[indice].nombre);
+botonPedir.addEventListener("click",()=>{
+    pedirBurga();
+    encontrarBurga();
+    mostrarPrecio();
+    })
 
-
-
-
-
-// console.log(indice);
-// switch(seek){
-//     case "La Bestia": confirm('El total de su compra es: ')
-// }
