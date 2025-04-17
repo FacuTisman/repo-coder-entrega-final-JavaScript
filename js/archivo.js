@@ -61,8 +61,9 @@ let input = document.getElementById('elegirHamburguesa');
 let botonPedir = document.getElementById('guardarHamburguesa');
 let nuevoDiv = document.createElement('div');
 let botonHistorial = document.getElementById("historial");
+let nuevaListaHistorial = document.createElement('ul');
 
-// let historial = [];
+let historial = JSON.parse(localStorage.getItem('historial')) ||[];
 
 function pedirBurga(){
     seek = input.value;
@@ -86,18 +87,35 @@ function mostrarPrecio(){
 function guardarHistorial(){
 
     historial.push({
-        nombre: `${seek}`,
+        nombre: seek,
         precio: arrayBurgas[indice].precio
         })
     
-    localStorage.setItem('historial',JSON.stringify(historial[indice]))
+    localStorage.setItem('historial',JSON.stringify(historial))
     
     }
 
-// console.log(historial[indice].nombre);
+function verHistorial(){
+    
+    nuevaListaHistorial.innerHTML = 'Historial: ';
+    document.body.appendChild(nuevaListaHistorial);
+
+    for(let i = 0; i< historial.length;i++){
+        let nuevoLiHistorial = document.createElement('li');
+        nuevoLiHistorial.innerHTML = `${historial[i].nombre}`;
+        nuevaListaHistorial.appendChild(nuevoLiHistorial);
+    }
+}
+
+
 botonPedir.addEventListener("click",()=>{
     pedirBurga();
     encontrarBurga();
     mostrarPrecio();
+    guardarHistorial();
     })
+
+botonHistorial.addEventListener("click",()=>{
+    verHistorial();
+})
 
