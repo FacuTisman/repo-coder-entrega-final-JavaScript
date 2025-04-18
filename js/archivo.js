@@ -80,7 +80,7 @@ function mostrarPrecio(){
         document.body.appendChild(nuevoDiv);
     }
     else{
-        alert('Esa hamburguesa no exixtse, elija otra.');
+        alert('Esa hamburguesa no existe, elija otra.');
     }
 }
 
@@ -106,7 +106,6 @@ function verHistorial(){
         nuevaListaHistorial.appendChild(nuevoLiHistorial);
     }
 }
-
 
 botonPedir.addEventListener("click",()=>{
     pedirBurga();
