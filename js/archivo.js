@@ -26,7 +26,7 @@ function encontrarBurga(){
     indice = arrayBurgas.findIndex(burga => burga.nombre.toLocaleLowerCase() === seek.toLocaleLowerCase());
 }
 
-function mostrarPrecio(){
+function mostrarHamburguesa(){
     if(indice != -1){
         nuevoDiv.innerHTML = `<p class = "msjCreado"> Gracias por agregar ${seek} a su carrito <p/>`
         document.body.appendChild(nuevoDiv);
@@ -86,7 +86,7 @@ function verCarrito(){
 botonPedir.addEventListener("click",()=>{
     pedirBurga();
     encontrarBurga();
-    mostrarPrecio();
+    mostrarHamburguesa();
     guardarCarrito();
     input.value = ""; 
     })
