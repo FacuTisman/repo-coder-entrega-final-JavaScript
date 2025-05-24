@@ -1,74 +1,26 @@
 let arrayBurgas = [];
 
-arrayBurgas.push({
-    nombre: "La Bestia",
-    precio: 10000
-});
+fetch('./burgas.json')
+.then(response => response.json())
+.then(data => {
+    arrayBurgas = data;
+})
+.catch(error => console.error('Error al cargar los datos:', error));
 
-arrayBurgas.push({
-    nombre: "Fuego Ahumado",
-    precio: 19000
-});
-
-arrayBurgas.push({
-    nombre: "La Criolla",
-    precio: 18000
-});
-
-arrayBurgas.push({
-    nombre: "Big Melt",
-    precio: 17000
-});
-
-arrayBurgas.push({
-    nombre: "la Big Picante",
-    precio: 16000
-});
-
-arrayBurgas.push({
-    nombre: "La Titan",
-    precio: 15000
-});
-
-arrayBurgas.push({
-    nombre: "Inferno Smash",
-    precio: 14000
-});
-
-arrayBurgas.push({
-    nombre: "La Granjera",
-    precio: 13000
-});
-
-arrayBurgas.push({
-    nombre: "El Queso Loco",
-    precio: 12000
-});
-
-arrayBurgas.push({
-    nombre: "La Montañesa",
-    precio: 11000
-});
-
-
-// for(let i = 0; i < arrayBurgas.length; i++){
-//     console.log(arrayBurgas[i]);
-// }
 
 let seek;
 let indice;
 let input = document.getElementById('elegirHamburguesa');
 let botonPedir = document.getElementById('guardarHamburguesa');
 let nuevoDiv = document.createElement('div');
-let botonHistorial = document.getElementById("historial");
-let nuevaListaHistorial = document.createElement('ul');
+let botonCarrito = document.getElementById("carrito");
+let nuevaListaCarrito = document.createElement('ul');
 
-let historial = JSON.parse(localStorage.getItem('historial')) ||[];
+let carrito = JSON.parse(localStorage.getItem('carrito')) ||[];
 
 function pedirBurga(){
     seek = input.value;
 }
-
 
 function encontrarBurga(){
     indice = arrayBurgas.findIndex(burga => burga.nombre.toLocaleLowerCase() === seek.toLocaleLowerCase());
@@ -76,45 +28,70 @@ function encontrarBurga(){
 
 function mostrarPrecio(){
     if(indice != -1){
-        nuevoDiv.innerHTML = `<p class = "msjCreado"> Gracias por comprar ${seek} el total a abonar es:  ${arrayBurgas[indice].precio} <p/>`
+        nuevoDiv.innerHTML = `<p class = "msjCreado"> Gracias por agregar ${seek} a su carrito <p/>`
         document.body.appendChild(nuevoDiv);
     }
     else{
-        alert('Esa hamburguesa no existe, elija otra.');
+
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Esa hamburguesa no existe!"   
+        });
+
+
     }
 }
 
-function guardarHistorial(){
+let precioTotal = 0;
 
-    historial.push({
+function guardarCarrito(){
+
+    carrito.push({
         nombre: seek,
         precio: arrayBurgas[indice].precio
         })
     
-    localStorage.setItem('historial',JSON.stringify(historial))
+    precioTotal += arrayBurgas[indice].precio;
+    localStorage.setItem('carrito',JSON.stringify(carrito))
     
     }
 
-function verHistorial(){
+function verCarrito(){
     
-    nuevaListaHistorial.innerHTML = 'Historial: ';
-    document.body.appendChild(nuevaListaHistorial);
+    nuevaListaCarrito.innerHTML = 'Carrito: ';
+    document.body.appendChild(nuevaListaCarrito);
 
-    for(let i = 0; i< historial.length;i++){
-        let nuevoLiHistorial = document.createElement('li');
-        nuevoLiHistorial.innerHTML = `${historial[i].nombre}`;
-        nuevaListaHistorial.appendChild(nuevoLiHistorial);
+    for(let i = 0; i< carrito.length;i++){
+        let nuevoLiCarrito = document.createElement('li');
+        nuevoLiCarrito.innerHTML = `${carrito[i].nombre}`;
+        nuevaListaCarrito.appendChild(nuevoLiCarrito); 
     }
+
+    nuevoDiv.innerHTML = `El total a abonar es: ${precioTotal}`;   
+    document.body.appendChild(nuevoDiv);
+
+    localStorage.removeItem('carrito');
+    carrito = [];
+    precioTotal = 0;
+
+    setTimeout(() => {
+        nuevaListaCarrito.remove();
+        nuevoDiv.remove();
+        nuevoLiCarrito.remove();
+    }, 3000 )
+
 }
 
 botonPedir.addEventListener("click",()=>{
     pedirBurga();
     encontrarBurga();
     mostrarPrecio();
-    guardarHistorial();
+    guardarCarrito();
+    input.value = ""; 
     })
 
-botonHistorial.addEventListener("click",()=>{
-    verHistorial();
+botonCarrito.addEventListener("click",()=>{
+    verCarrito();
 })
 

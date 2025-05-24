@@ -1,0 +1,42 @@
+[
+  {
+    "nombre": "La Bestia",
+    "precio": 10000
+  },
+  {
+    "nombre": "Fuego Ahumado",
+    "precio": 19000
+  },
+  {
+    "nombre": "La Criolla",
+    "precio": 18000
+  },
+  {
+    "nombre": "Big Melt",
+    "precio": 17000
+  },
+  {
+    "nombre": "La Big Picante",
+    "precio": 16000
+  },
+  {
+    "nombre": "La Titan",
+    "precio": 15000
+  },
+  {
+    "nombre": "Inferno Smash",
+    "precio": 14000
+  },
+  {
+    "nombre": "La Granjera",
+    "precio": 13000
+  },
+  {
+    "nombre": "El Queso Loco",
+    "precio": 12000
+  },
+  {
+    "nombre": "La Montañesa",
+    "precio": 11000
+  }
+]
